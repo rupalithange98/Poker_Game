@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Players {
 	String pName;
-	Card[] cardsInHand=new Card[3];
+	Card[] cardsInHand=new Card[3];//getting card in per person hand
 	int marks=0;
 	
 	public Players(String pName) {

@@ -6,12 +6,14 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Poker {
-
+	//create arrayList of player
 	static ArrayList<Players> playerList = new ArrayList();
+	
+	//create arraylist of playerScore
 	static ArrayList<Integer> playerScore = new ArrayList();
 
-	public static void shuffleDeck(CardDecks cat) {
-
+	public static void shuffleDeck(CardDecks cat) //method to shuffle array of 52 cards randomly
+	{
 		for (int c = cat.cardsDeck.length - 1; c > 0; c--) {
 			int rand = (int) (Math.random() * (c + 1));
 			Card temp = cat.cardsDeck[c];
@@ -22,7 +24,8 @@ public class Poker {
 
 	}
 
-	public static void fillDeck(CardDecks cd) {
+	public static void fillDeck(CardDecks cd) //fill the deck with values of rank and suit..initially carddeck is empty
+	{
 		int i = 0;
 		for (Suit s : Suit.values()) {
 			for (Rank r : Rank.values()) {
@@ -32,7 +35,8 @@ public class Poker {
 		}
 	}
 
-	public static void dispatchCards(CardDecks cat, ArrayList<Players> playerList) {
+	public static void dispatchCards(CardDecks cat, ArrayList<Players> playerList) //distribute the cards to each person
+	{
 		int cardNumber = 0;
 		for (int i = 0; i < playerList.size(); i++) {
 			for (int j = 0; j < playerList.get(i).cardsInHand.length; j++) {
@@ -107,13 +111,10 @@ public class Poker {
 		for (Players p : players) {
 		if(isSameRank(p.cardsInHand)) {
 			p.marks=p.marks+1;
-//			System.out.println("isRank:"+p.marks);
-		}
-			else if(isSameColor(p.cardsInHand)) {
+			}else if(isSameColor(p.cardsInHand)) {
 				p.marks=p.marks+4;
 				System.out.println("isSame:"+p.marks);
-			}
-			else {
+		}else {
 				p.marks=0;
 			}
 		
@@ -124,16 +125,15 @@ public class Poker {
 
 			playerScore.add(p.marks);
 			System.out.println("Marks of player:" + p.marks);
-
 		}
 		displayWinner(playerList);
 	}
 
-	public static boolean isSameRank(Card cardsInHand[]) {
-
+	public static boolean isSameRank(Card cardsInHand[])//check the player having same rank of cards check the equality of other cards with the first card
+	{
 		Rank firstCardRank = cardsInHand[0].rank();
-//		Suit firstCardSuit = cardsInHand[0].suit();
-		for (int i = 1; i < cardsInHand.length; i++) {
+		for (int i = 1; i < cardsInHand.length; i++) 
+		{
 			if (!firstCardRank.equals(cardsInHand[i].rank())) {
 				return true;
 			}
@@ -141,7 +141,8 @@ public class Poker {
 		return false;
 	}
 
-	public static boolean isSameColor(Card cardsInHand[]) {
+	public static boolean isSameColor(Card cardsInHand[]) //check the card having same colour or not
+	{
 		Suit firstCardSuit = cardsInHand[0].suit();
 		for (int i = 1; i < cardsInHand.length; i++) {
 			if (!firstCardSuit.equals("CLUBS") || !firstCardSuit.equals("SPADES")) {
@@ -151,7 +152,8 @@ public class Poker {
 		return false;
 	}
 
-	public static int isHighestCard(Card cardsInHand[]) {
+	public static int isHighestCard(Card cardsInHand[])//calculate sum of cards having each player
+	{
 		int sum = 0;
 		for (int i = 0; i < cardsInHand.length; i++) {
 //			System.out.println(cardsInHand[i].rank().val);
@@ -160,7 +162,8 @@ public class Poker {
 		return sum;
 	}
 
-	public static void displayWinner(ArrayList<Players> playerList) {
+	public static void displayWinner(ArrayList<Players> playerList) //to display winner having maximum count of sum
+	{
 		int max = 0;
 		String player = "";
 		for (Players pl : playerList) {
@@ -169,8 +172,6 @@ public class Poker {
 				max = pl.marks;
 				player = pl.pName;
 			}
-//			System.out.println(pl.Marks);
-
 		}
 		System.out.println("Winner is : " + player + " with score " + max);
 	}
